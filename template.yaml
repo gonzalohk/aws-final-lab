@@ -8,3 +8,16 @@ Globals:
     Timeout: 30
     MemorySize: 512
     Architectures: [x86_64]
+
+Resources:
+  # 1. Storage
+  AppStorageBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "img-lab-${AWS::AccountId}-${AWS::Region}"
+
+  # 2. Messaging Queue
+  ProcessingQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 70
