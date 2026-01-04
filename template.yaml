@@ -21,3 +21,28 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       VisibilityTimeout: 70
+
+SignerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: signer.lambda_handler
+      Environment:
+        Variables:
+          BUCKET_NAME: !Ref AppStorageBucket
+      Policies:
+        - S3ReadPolicy: { BucketName: !Ref AppStorageBucket }
+        - S3WritePolicy: { BucketName: !Ref AppStorageBucket }
+      Events:
+        # Endpoint para obtener URL de descarga (GET)
+        GetImageEvent:
+          Type: Api
+          Properties:
+            Path: /image
+            Method: get
+        # Endpoint para obtener URL de subida (POST)
+        UploadImageEvent:
+          Type: Api
+          Properties:
+            Path: /image
+            Method: post
