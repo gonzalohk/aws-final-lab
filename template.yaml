@@ -22,7 +22,7 @@ Resources:
     Properties:
       VisibilityTimeout: 70
 
-SignerFunction:
+  SignerFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: src/
